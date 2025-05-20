@@ -1,0 +1,105 @@
+#include <stdio.h> 
+
+#define MAX_SISWA 100
+#define MAX_NAMA 50
+
+// Array dan data absensi 
+char nama[MAX_SISWA][MAX_NAMA];
+int status[MAX_SISWA]; // 0 = hadir, 1 = tidak, 2 = sakit, 3 = izin
+int jumlah = 0; 
+
+// lalu Informasi kelas
+char tanggal[20];
+char hari[15];
+char mataKuliah[50];
+int pertemuanKe;
+
+// Fungsi input informasi kelas 
+void inputInformasiKelas() { 
+    printf("==== INFORMASI KELAS ====\n");
+    
+printf("Tanggal:");
+scanf("%s", tanggal);
+
+printf("Hari:");
+scanf("%s", hari);
+
+printf("Mata Kuliah:");
+scanf("%s", mataKuliah); 
+
+printf("Pertemuan ke-:");
+scanf("%d", &pertemuanKe);
+
+}
+
+// fungsi tambah data 
+void tambahData() {
+    if(jumlah >= MAX_SISWA) {
+        printf("Data sudah penuh! tidak bisa menambah lebih banyak lagi.\n");
+        return;
+    }
+    printf("\nMasukkan nama siswa ke-%d\n", jumlah + 1);
+    scanf("%s", nama[jumlah]);
+    
+    printf("Status ( 0 = hadir, 1 = tidak, 2 = sakit, 3 = izin): ");
+    scanf("%d", &status[jumlah]);
+    
+    jumlah++;
+    printf("Data berhasil ditambahkan.\n");
+   
+ }
+         
+// fungsi tampilkan data 
+void tampilkanData() {
+    if(jumlah == 0) {
+        printf("Belum ada data absensi.\n");
+        return;
+    }
+    printf("\n==== DAFTAR ABSENSI ====\n");
+    printf("Mata Kuliah : %s\n", mataKuliah);
+    printf("Hari/Tanggal: %s / %s\n", hari, tanggal);
+    printf("Pertemuan ke-%d\n", pertemuanKe);
+    printf("| No  | Nama |             |  Status    |\n");
+    printf("|=====|====================|============|\n");
+    
+    
+    for(int i = 0; i < jumlah; i++) {
+        printf("| %-3d | %-18s ", i + 1, nama[i]);
+        if(status[i] == 0) printf("hadir\n");
+        else if(status[i] == 1) printf("tidak\n");
+        else if(status[i] == 2) printf("sakit\n");
+        else if(status[i] == 3) printf("izin\n"); 
+        else printf("tidak valid\n");
+        
+    }
+    
+}
+
+//Main program  
+int main() {
+    int pilihan = 0; 
+    
+    inputInformasiKelas(); // Input hari, tanggal, mata kuliah, pertemuan
+    
+    while(pilihan != 3) {
+        printf("\nMenu:\n");
+        printf("1. Tambah Data\n");
+        printf("2. Lihat Data\n");
+        printf("3. Keluar\n");
+        printf("Pilih Menu: ");
+        scanf("%d", &pilihan);
+        
+        if(pilihan == 1) {
+            tambahData();
+        } else if(pilihan == 2) {
+            tampilkanData();
+        } else if(pilihan == 3) {
+            printf("yey program selesai.\n");
+        } else { 
+            printf("pilihan tidak valid.\n");
+        }
+    }
+        
+        
+        return 0;
+    } 
